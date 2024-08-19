@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Records</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ row[0] }}" data-name="{{ row[1] }}">Edit</button>
+                <form action="{{ url_for('delete_record', id=row[0]) }}" method="post" style="display:inline;">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Add Record Modal -->
+<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Add Record</button>
+{% include 'modal.html' %}
+{% endblock %}
